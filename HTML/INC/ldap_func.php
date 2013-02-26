@@ -19,7 +19,7 @@ $ldf=str_replace("&amp;", "&", @LDAP_FILTER);
 
 
 
-  $justthese = array("displayname", "mail", "company", "department", "physicaldeliveryofficename", "mobile", "ipphone", "telephonenu
+  $justthese = array("displayname", "mail", "company", "department", "physicaldeliveryofficename", "telephonenumber", "samaccountname", "useraccountcontrol");
   $sr=ldap_search($ldapconn, @LDAP_DN,$ldf, $justthese);
   $info = ldap_get_entries($ldapconn, $sr);
   ldap_close($ldapconn);
@@ -53,7 +53,7 @@ $ldf=str_replace("&amp;", "&", @LDAP_FILTER);
        $newuser->enabled=$userenbl;
        $newuser->name = $info[$i]["displayname"][0];
        $counter++;
-       log_audit($_SESSION['user'],"Ldap import.New user has added.", $info[$i]["samaccountname"][0]." (".$info[$i]["displayname"][0
+       log_audit($_SESSION['user'],"Ldap import.New user has added.", $info[$i]["samaccountname"][0]." (".$info[$i]["displayname"][0].")" );
        insert_user($newuser);
        }
      }
